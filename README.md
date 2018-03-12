@@ -35,7 +35,3 @@ java ricart.Node 0
 java ricart.Node 1
 java ricart.Node 2
 
-
-
-
-
