@@ -1,2 +1,9 @@
 p1 neighor peer information:p2 p1 neighor peer information:p3 	
 2018-03-07 11:37:20		File a1.txt is registered on the local peer!
+p1 neighor peer information:p2 p1 neighor peer information:p3 	
+2018-03-11 16:41:55		File yy.txt is registered on the local peer!
+2018-03-11 16:42:03		Receive: query 1 yy.txt p3	
+2018-03-11 16:42:03		File yy.txt is found on p1
+2018-03-11 16:42:03		Send:query 1 yy.txt p1	
+2018-03-11 16:42:03		Send:hitQuery 1 yy.txt p1	
+2018-03-11 16:42:14		Send yy.txtsuccessfully!	

@@ -41,7 +41,7 @@ public class Peer {
 							if(info[i].equals(temp[0])){
 							Node node = new Node(temp[0], temp[1], Integer.parseInt(temp[2]));
 							peerInfo.local.neighbor.add(node);
-							writer.write(peerInfo.local.nick.peerName + " neighor peer information:");
+							writer.write(peerInfo.local.nick.peerName + " information about neighbours:");
 							writer.write(node.peerName + " ");
 							}
 							}
