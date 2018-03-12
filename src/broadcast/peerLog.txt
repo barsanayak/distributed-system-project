@@ -1,0 +1,2 @@
+p1 neighor peer information:p2 p1 neighor peer information:p3 	
+2018-03-07 11:37:20		File a1.txt is registered on the local peer!
