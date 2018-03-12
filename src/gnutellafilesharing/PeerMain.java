@@ -98,7 +98,6 @@ public class PeerMain {
 	 * local file list.
 	 */
 	public void fileMonitor(String path) {
-		System.out.println(" filemonotr " + path);
 		File file = new File(path);
 		if (!file.exists() && !file.isDirectory()) {
 			file.mkdir();
@@ -343,7 +342,6 @@ class WThread extends Thread {
 
 	// peerInfo.local.fileList
 	public WThread(String path) {
-		System.out.println(" Wthread path->" + path);
 		this.path = path;
 		// Record the original file list in the folder
 		start();
