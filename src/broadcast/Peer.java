@@ -73,7 +73,6 @@ public class Peer {
 	 *  and register all files in the local file list.
 	 */
 	public void fileMonitor(String path){
-		System.out.println( " filemonotr "+path);
 		File file = new File(path);
 		if(!file .exists() && !file.isDirectory()){        
 		    file.mkdir();    
@@ -139,7 +138,7 @@ public class Peer {
 		}
 	}
 	
-public void talk(peerFunction peerfunc)throws IOException{
+public void talk(FileSharingImpl peerfunc)throws IOException{
 		
 		boolean exit = false;
 		// Store file name
@@ -155,7 +154,7 @@ public void talk(peerFunction peerfunc)throws IOException{
 				System.out.println("Enter the peer name:");
 				peerInfo.local.nick.peerName = localReader.readLine();
 				peerInfo.initial();
-				readConfig(peerInfo.local.configFilePath);
+				readConfigurationFile(peerInfo.local.configFilePath);
 				ServerSocket server = null;
 			    try{
 			    	server = new ServerSocket(peerInfo.local.nick.port);
@@ -258,11 +257,11 @@ public void talk(peerFunction peerfunc)throws IOException{
 	
 	public static void main(String args[]){
 		Peer peer = new Peer();
-		peerFunction peerfunc = new peerFunction();
+		FileSharingImpl peerfunc = new FileSharingImpl();
 		peer.fileMonitor(peerInfo.local.sharedPath);
 		new WThread(peerInfo.local.sharedPath);
 		try {
-			peer.talk(peerfunc);
+			peer.communicate(peerfunc);
 			
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -282,7 +281,6 @@ class WThread extends Thread {
 	String path = null;
 //	peerInfo.local.fileList
 	public WThread(String path){
-		System.out.println( " Wthread path->" + path);
 		this.path = path;
 		// Record the original file list in the folder
 		start();

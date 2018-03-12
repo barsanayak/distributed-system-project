@@ -10,10 +10,10 @@ tiger@tiger-X556UA:~/Documents/test2/1/src$ javac Peer/*.java
 tiger@tiger-X556UA:~/Documents/test2/1/src$ java Peer.Peer
 
 
-1 Set up peer name
-2 Register a file
-3 Search a file
-4 Exit
+1. Set up peer name
+2. Register a file
+3. Search a file
+4. Exit
 1
 Enter the peer name:
 p1

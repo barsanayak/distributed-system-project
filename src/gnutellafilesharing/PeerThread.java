@@ -1,4 +1,4 @@
-package Peer;
+package gnutellafilesharing;
 
 import java.io.*;
 import java.net.*;
@@ -8,15 +8,15 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.Map.Entry;
 
-import Peer.peerFunction.clientThread;
+import gnutellafilesharing.FileSharingImpl.clientThread;
 
 public class PeerThread extends Thread{
 	private ServerSocket serversocket;
 	private Socket socket;
 	private BufferedReader br;
-	public peerFunction peerfunc;
+	public FileSharingImpl peerfunc;
 	
-	public PeerThread(ServerSocket serversocket, peerFunction peerfunc)throws IOException{
+	public PeerThread(ServerSocket serversocket, FileSharingImpl peerfunc)throws IOException{
 		super();
 		this.serversocket = serversocket;	
 		this.peerfunc = peerfunc;
@@ -43,7 +43,7 @@ public class PeerThread extends Thread{
 		}
 	}
 	
-	private static void invoke(final Socket socket, final peerFunction peerfunc) throws IOException {
+	private static void invoke(final Socket socket, final FileSharingImpl peerfunc) throws IOException {
 		new Thread(new Runnable(){
 
 			@Override
@@ -64,7 +64,7 @@ public class PeerThread extends Thread{
                 String time;
                 FileWriter writer = null;
                 try {  
-                	writer = new FileWriter(peerInfo.local.logFilePath,true);
+                	writer = new FileWriter(PeerInformation.local.logFilePath,true);
                 	
                     is = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));  
                     os = new ObjectOutputStream(socket.getOutputStream());  
@@ -94,12 +94,12 @@ public class PeerThread extends Thread{
                     		peerfunc.query(messageID, TTL, fileName);
                     		flag = peerfunc.search(fileName);
                     		if(flag){
-                    			System.out.println(fileName+" is on "+peerInfo.local.nick.peerName);
-                    			peerfunc.hitQuery(messageID, TTL, fileName, peerInfo.local.nick.IP, peerInfo.local.nick.port);
+                    			System.out.println(fileName+" is on "+PeerInformation.local.nodeInfo.peerName);
+                    			peerfunc.hitQuery(messageID, TTL, fileName, PeerInformation.local.nodeInfo.IP, PeerInformation.local.nodeInfo.port);
                     			
                     			df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                     			time = df.format(new Date());
-                    			writer.write(time + "\t\tFile "+fileName + " is found on " + peerInfo.local.nick.peerName+"\r\n");
+                    			writer.write(time + "\t\tFile "+fileName + " is found on " + PeerInformation.local.nodeInfo.peerName+"\r\n");
                     				
                     			
                     		}else{
@@ -113,10 +113,10 @@ public class PeerThread extends Thread{
                     			
                     			df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                     			time = df.format(new Date());
-                    			writer.write(time + "\t\tFile "+fileName + " is found on " + peerInfo.local.nick.peerName+"\r\n");
+                    			writer.write(time + "\t\tFile "+fileName + " is found on " + PeerInformation.local.nodeInfo.peerName+"\r\n");
                     			
-                    			System.out.println(fileName+" is on "+peerInfo.local.nick.peerName);
-                    			peerfunc.hitQuery(messageID, TTL, fileName, peerInfo.local.nick.IP, peerInfo.local.nick.port);            			
+                    			System.out.println(fileName+" is on "+PeerInformation.local.nodeInfo.peerName);
+                    			peerfunc.hitQuery(messageID, TTL, fileName, PeerInformation.local.nodeInfo.IP, PeerInformation.local.nodeInfo.port);            			
                     		}else{
                     			peerfunc.hitQuery(messageID, TTL, fileName, IP, port);
                     		}
@@ -202,9 +202,9 @@ class RThread extends Thread{
         FileWriter writer = null;
         
         try {  
-        	writer = new FileWriter(peerInfo.local.logFilePath,true);
+        	writer = new FileWriter(PeerInformation.local.logFilePath,true);
         	
-            File file = new File(peerInfo.local.sharedPath + fileName); 
+            File file = new File(PeerInformation.local.sharedPath + fileName); 
             long l = file.length();   
             socket = new Socket(IP,port);                
             dos = new DataOutputStream(socket.getOutputStream());  

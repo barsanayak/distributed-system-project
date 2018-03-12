@@ -1,4 +1,4 @@
-package Peer;
+package gnutellafilesharing;
 
 import java.io.Serializable;
 
@@ -23,8 +23,12 @@ public class Node implements Serializable{
 		this.IP = IP;
 		this.port = port;
 	}
+	
+	public String getPeerName() {
+		return this.peerName;
+	}
 
 	public void NodeInfo() {
-		System.out.println(peerName + " " + IP + " " + port);
+		System.out.println("Name:"+peerName + "  IP:" + IP + "  port:" + port);
 	}
 }

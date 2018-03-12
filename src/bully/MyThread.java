@@ -35,7 +35,7 @@ public class MyThread implements Runnable {
 			// wait;
 		}
 		
-		System.out.println("P" + this.process.getPid() + ": I'm back!");
+		System.out.println("P" + this.process.getPid() + ": I'm up and running again!");
 
 		try {
 			Election.pingLock.lock();
@@ -43,8 +43,8 @@ public class MyThread implements Runnable {
 			Socket outgoing = new Socket(InetAddress.getLocalHost(), 12345);
 			Scanner scan = new Scanner(outgoing.getInputStream());
 			PrintWriter out = new PrintWriter(outgoing.getOutputStream(), true);
-			System.out.println("P" + this.process.getPid() + ": Who is the coordinator?");
-			out.println("Who is the coordinator?");
+			System.out.println("P" + this.process.getPid() + ": Who is the current coordinator?");
+			out.println("Who is the current coordinator?");
 			out.flush();
 			
 			String pid = scan.nextLine();
@@ -77,7 +77,7 @@ public class MyThread implements Runnable {
 		try {
 			Election.pingLock.lock();
 			if (Election.isPingFlag()) {
-				System.out.println("P" + this.process.getPid() + ": Coordinator, are you there?");
+				System.out.println("P" + this.process.getPid() + ": Coordinator, are you alive?");
 				Socket outgoing = new Socket(InetAddress.getLocalHost(), 12345);
 				outgoing.close();
 			}
@@ -86,7 +86,7 @@ public class MyThread implements Runnable {
 			Election.setElectionFlag(true);
 			Election.setElectionDetector(this.process);
 
-			System.out.println("P" + this.process.getPid() + ": Coordinator is down, I'm  initiating election..");
+			System.out.println("P" + this.process.getPid() + ": The Coordinator is down, Bully election is being initiated by me..");
 		} finally {
 			Election.pingLock.unlock();
 		}
@@ -157,14 +157,14 @@ public class MyThread implements Runnable {
 			for (int counter = 0; counter < temp; counter++) {
 				incoming = s.accept();
 				if (Election.isPingFlag())
-					System.out.println("P" + this.process.getPid() + ": Yes");
+					System.out.println("P" + this.process.getPid() + ":  Yes");
 				
 				Scanner scan = new Scanner(incoming.getInputStream());
 				PrintWriter out = new PrintWriter(incoming.getOutputStream(), true);
 				while (scan.hasNextLine() && !done) {
 					String line = scan.nextLine();
-					if (line.equals("Who is the coordinator?")) {
-						System.out.println("P" + this.process.getPid() + ": Me");
+					if (line.equals("Who is current the coordinator?")) {
+						System.out.println("P" + this.process.getPid() + ": Its Me");
 						out.println(this.process.getPid());
 						out.flush();
 					} else if (line.equals("Resign")) {
@@ -173,7 +173,7 @@ public class MyThread implements Runnable {
 						out.flush();
 						incoming.close();
 						s.close();
-						System.out.println("P" + this.process.getPid() + ": Successfully Resigned");
+						System.out.println("P" + this.process.getPid() + ": has successfully Resigned");
 						return;
 						
 					} else if (line.equals("Don't Resign")) {

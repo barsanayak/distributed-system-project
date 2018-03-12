@@ -11,9 +11,9 @@ public class PeerThread extends Thread{
 	private ServerSocket serversocket;
 	private Socket socket;
 	private BufferedReader br;
-	public peerFunction peerfunc;
+	public FileSharingImpl peerfunc;
 	
-	public PeerThread(ServerSocket serversocket, peerFunction peerfunc)throws IOException{
+	public PeerThread(ServerSocket serversocket, FileSharingImpl peerfunc)throws IOException{
 		super();
 		this.serversocket = serversocket;	
 		this.peerfunc = peerfunc;
@@ -40,7 +40,7 @@ public class PeerThread extends Thread{
 		}
 	}
 	
-	private static void invoke(final Socket socket, final peerFunction peerfunc) throws IOException {
+	private static void invoke(final Socket socket, final FileSharingImpl peerfunc) throws IOException {
 		new Thread(new Runnable(){
 
 			@Override

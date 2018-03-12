@@ -1,4 +1,4 @@
-package Peer;
+package gnutellafilesharing;
 
 import java.io.DataOutputStream;
 import java.io.File;
@@ -14,15 +14,15 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.Map.Entry;
 
-public class peerFunction {
+public class FileSharingImpl {
 	/*
 	 *  search function
 	 *  search file on the local peer
 	 */
 	public boolean search(String fileName){
-		if(peerInfo.local.fileList.size()!=0){
-			for(int i = 0; i < peerInfo.local.fileList.size(); i++){
-				if(fileName.equals(peerInfo.local.fileList.get(i))){
+		if(PeerInformation.local.fileList.size()!=0){
+			for(int i = 0; i < PeerInformation.local.fileList.size(); i++){
+				if(fileName.equals(PeerInformation.local.fileList.get(i))){
 					return true;
 				}
 			}
@@ -94,7 +94,7 @@ public class peerFunction {
 		@Override
 		public void run() {
 			// TODO Auto-generated method stub
-			peerInfo.local.messageTable.put(messageNum, messageID);
+			PeerInformation.local.messageTable.put(messageNum, messageID);
 //			System.out.println("Add message:"+messageNum+" "+messageID.getSequenceNumber()+" "+messageID.getPeerID().peerName);
 		}
 		
@@ -120,7 +120,7 @@ public class peerFunction {
         	int key = messageID.getSequenceNumber();
         	MessageID ID = null;
         	Node node = null;
-        	Iterator it = peerInfo.local.messageTable.entrySet().iterator();
+        	Iterator it = PeerInformation.local.messageTable.entrySet().iterator();
         	while(it.hasNext()){
         		Entry entry = (Entry) it.next();
         		if(entry.getKey().equals(key)){
@@ -132,23 +132,23 @@ public class peerFunction {
         	if(ID != null){
         		int seqNum = ID.getSequenceNumber();
         		node = ID.getPeerID();
-        		if(node.equals(peerInfo.local.nick)){
+        		if(node.equals(PeerInformation.local.nodeInfo)){
 
-        			peerInfo.local.hitQueryRequest++;	
+        			PeerInformation.local.hitQueryRequest++;	
         			String fileIp = message.getPeerIP();
         			int filePort = message.getPort();
         			if(filePort != -1){                  			
         				Node peer = new Node(fileIp, filePort);
         				boolean b = false;
-        				for(int i = 0; i<peerInfo.dest.destPeer.size();i++){
-        					if(peerInfo.dest.destPeer.get(i).IP.equals(peer.IP)&&
-        							peerInfo.dest.destPeer.get(i).port == peer.port){
+        				for(int i = 0; i<PeerInformation.destination.destPeer.size();i++){
+        					if(PeerInformation.destination.destPeer.get(i).IP.equals(peer.IP)&&
+        							PeerInformation.destination.destPeer.get(i).port == peer.port){
         						b = true;
         					}
         				}
         				
         				if(!b){
-        					peerInfo.dest.destPeer.add(peer);
+        					PeerInformation.destination.destPeer.add(peer);
         				}	
         			}
         		}else{
@@ -180,28 +180,28 @@ public class peerFunction {
 			
 			int sequence = messageID.getSequenceNumber();
 			
-			if(peerInfo.local.neighbor.size()!=0){
-				for(int i = 0; i < peerInfo.local.neighbor.size(); i++){
-					if(upstream.peerName.equals(peerInfo.local.neighbor.get(i).peerName)
-							&& upstream.IP.equals(peerInfo.local.neighbor.get(i).IP)){
+			if(PeerInformation.local.neighbor.size()!=0){
+				for(int i = 0; i < PeerInformation.local.neighbor.size(); i++){
+					if(upstream.peerName.equals(PeerInformation.local.neighbor.get(i).peerName)
+							&& upstream.IP.equals(PeerInformation.local.neighbor.get(i).IP)){
 						// If the message comes from neighbor i, then do not send query message back
 					}else{
 						// If the message do not comes from neighbor i, then send query message
 						// Add messageNum and local peer information to local message table
-						peerInfo.local.messageNum++;
+						PeerInformation.local.messageNum++;
 						
 						MessageID oldMessage = new MessageID(sequence,upstream);
 						
-						addMessage(peerInfo.local.messageNum, oldMessage);
+						addMessage(PeerInformation.local.messageNum, oldMessage);
 						
 //						System.out.println(oldMessage.getPeerID().peerName);
 						
-						MessageID newMessage = new MessageID(peerInfo.local.messageNum,peerInfo.local.nick);
+						MessageID newMessage = new MessageID(PeerInformation.local.messageNum,PeerInformation.local.nodeInfo);
 												
 						message = new Message(command, newMessage, TTL, fileName);
 						
 						try {
-							FileWriter writer = new FileWriter(peerInfo.local.logFilePath,true);
+							FileWriter writer = new FileWriter(PeerInformation.local.logFilePath,true);
 							DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 							String time = df.format(new Date());
 							writer.write(time + "\t\tSend:"+command + " " + message.getMessageID().getSequenceNumber() 
@@ -214,7 +214,7 @@ public class peerFunction {
 //						System.out.print("Send:"+command + " " + message.getMessageID().getSequenceNumber() + " " +message.getfileName()+" ");
 //                    	System.out.println(message.getMessageID().getPeerID().peerName);
 
-						new clientThread(message, peerInfo.local.neighbor.get(i).IP, peerInfo.local.neighbor.get(i).port);
+						new clientThread(message, PeerInformation.local.neighbor.get(i).IP, PeerInformation.local.neighbor.get(i).port);
 					}
 				}
 			}		
@@ -246,12 +246,12 @@ public class peerFunction {
 			// Do not need to change the sequenceNumber
 			Node upstream = messageID.getPeerID();
 			// Set local peer name to messageID
-			MessageID messageid = new MessageID(messageID.getSequenceNumber(), peerInfo.local.nick);
+			MessageID messageid = new MessageID(messageID.getSequenceNumber(), PeerInformation.local.nodeInfo);
 //			messageID.setPeerID(peerInfo.local.nick);
 			message = new Message(command, messageid, TTL, fileName, IP, port);
 			
 			try {
-				FileWriter writer = new FileWriter(peerInfo.local.logFilePath,true);
+				FileWriter writer = new FileWriter(PeerInformation.local.logFilePath,true);
 				DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 				String time = df.format(new Date());
 				writer.write(time + "\t\tSend:"+command + " " + message.getMessageID().getSequenceNumber() 
@@ -289,7 +289,7 @@ public class peerFunction {
 		public void run() {
 			// TODO Auto-generated method stub
 			message = new Message(command, fileName, IP, port);
-			new clientThread(message, peerInfo.dest.destPeer.get(indexNum-1).IP, peerInfo.dest.destPeer.get(indexNum-1).port);
+			new clientThread(message, PeerInformation.destination.destPeer.get(indexNum-1).IP, PeerInformation.destination.destPeer.get(indexNum-1).port);
 		}
 		
 	}
@@ -364,7 +364,7 @@ class SThread extends Thread{
         boolean bool = false;
      
         try {  
-        	String path = peerInfo.local.completeSharedPath + fileName;
+        	String path = PeerInformation.local.completeSharedPath + fileName;
         	System.out.println("path -->"+path);
             File file = new File(path); 
             
@@ -384,7 +384,7 @@ class SThread extends Thread{
             if(sumL==l){  
                 bool = true;  
                 try {
-					FileWriter writer = new FileWriter(peerInfo.local.logFilePath,true);
+					FileWriter writer = new FileWriter(PeerInformation.local.logFilePath,true);
 					DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 					String time = df.format(new Date());
 					writer.write(time + "\t\tSend " + fileName + "successfully!\t\n");

@@ -1,4 +1,4 @@
-package Peer;
+package gnutellafilesharing;
 
 import java.io.Serializable;
 
