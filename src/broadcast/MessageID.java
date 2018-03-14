@@ -5,9 +5,9 @@ import java.io.Serializable;
 public class MessageID implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private int sequenceNumber;
-	private Node peerID;
+	private NodeMain peerID;
 	
-	public MessageID(int sequenceNumber, Node peerID){
+	public MessageID(int sequenceNumber, NodeMain peerID){
 		this.sequenceNumber = sequenceNumber;
 		this.peerID = peerID;
 	}
@@ -16,7 +16,7 @@ public class MessageID implements Serializable{
 		this.sequenceNumber = sequenceNumber;
 	}
 
-	public void setPeerID(Node peerID){
+	public void setPeerID(NodeMain peerID){
 		this.peerID = peerID;
 	}
 	
@@ -24,7 +24,7 @@ public class MessageID implements Serializable{
 		return sequenceNumber;
 	}
 	
-	public Node getPeerID(){
+	public NodeMain getPeerID(){
 		return peerID;
 	}
 }

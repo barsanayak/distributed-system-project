@@ -32,7 +32,7 @@ public class DaemonThread extends Thread
 		this.RA = RA;
 		this.IOH = IOH;
 		try {
-			BR = Node.readers.get(socket);
+			BR = NodeMain.readers.get(socket);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -59,19 +59,19 @@ public class DaemonThread extends Thread
 				{
 					RA.nodeCompletetionCount++;
 					RA.totalRequestsSent += Integer.parseInt(tokens[1]);
-					if (RA.nodeCompletetionCount == Node.NUMNODES-1 && 
+					if (RA.nodeCompletetionCount == NodeMain.NUMNODES-1 && 
 					RA.nodeZeroCompletetion == true)
 					{
 						System.out.println("ALLLLLL OVERRRRR:"+RA.totalRequestsSent);
 						IOH.report("TOTAL MESSAGES:"+RA.totalRequestsSent);
-						Node.broadcast("HALT");
+						NodeMain.broadcast("HALT");
 						/*try {
 							Thread.sleep(5000);
 						} catch (InterruptedException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}*/
-						Node.closeSockets();
+						NodeMain.closeSockets();
 					}
 				}
 				
@@ -79,7 +79,7 @@ public class DaemonThread extends Thread
 				if(messageType.equals("HALT"))
 				{
 					//Thread.sleep(5000);
-					Node.closeSockets();
+					NodeMain.closeSockets();
 				}
 				
 				if(messageType.equals("REPLY"))
@@ -108,23 +108,23 @@ public class DaemonThread extends Thread
 							((RA.requestCS == false)
 							|| (RA.requestCS == true && RA.requestTS > messageTS)
 							|| (RA.requestCS == true && RA.requestTS == messageTS
-							 && Node.nodeID > Integer.parseInt(tokens[2]))))
+							 && NodeMain.nodeID > Integer.parseInt(tokens[2]))))
             		{
 						if (RA.requestCS == true && RA.criticalSection == false 
 			            		&& RA.criticalSectionCount != 0 && !(RA.copyOfParticipants.contains(tokens[2])))
 			            {
 			            	++RA.participantsCount;
-			            	PrintWriter writer2 = Node.writers.get(socket);
+			            	PrintWriter writer2 = NodeMain.writers.get(socket);
 			            	long requestTS = TimeStamp.getTimestamp();
-    			            writer2.println("REQUEST,"+requestTS+","+Node.nodeID);
+    			            writer2.println("REQUEST,"+requestTS+","+NodeMain.nodeID);
     			            writer2.flush();
     			            System.out.println("Sending delayed request to"+tokens[2]+":"+requestTS);
 			            }
 						
 						System.out.println("REPLY SENT TO:"+tokens[2]);
 						// Reply
-						PrintWriter writer = Node.writers.get(socket);
-						writer.println("REPLY"+","+Node.nodeID);
+						PrintWriter writer = NodeMain.writers.get(socket);
+						writer.println("REPLY"+","+NodeMain.nodeID);
 			            writer.flush();
 			            
 			            // Roucairol-Carvalho optimization

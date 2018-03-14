@@ -1,5 +1,7 @@
 package gnutellafilesharing;
 
+
+
 import java.io.Serializable;
 
 public class Message implements Serializable{
@@ -10,6 +12,9 @@ public class Message implements Serializable{
 	private String peerIP;
 	private String command;
 	private int port;
+	private String broadcastMessage;
+        private String messagebId;
+        private String originator;
 	
 	// Query message 
 	public Message(String command, MessageID messageID, int TTL, String fileName){
@@ -35,6 +40,17 @@ public class Message implements Serializable{
 		this.command = command;
 		this.fileName = fileName;
 		this.peerIP = peerIP;
+		// Set down load port
+		this.port = port;
+	}
+	
+	 //Broadcast message
+        public Message(String command, String messageId, String message, String originator){
+		this.command = command;
+		this.messagebId = messageId ;
+                this.broadcastMessage = message;
+                this.originator = originator;
+		//this.peerIP = peerIP;
 		// Set down load port
 		this.port = port;
 	}
@@ -86,4 +102,18 @@ public class Message implements Serializable{
 	public String getCommand(){
 		return command;
 	}
+	
+	public String getBrdMsg() {
+            return broadcastMessage;
+        }
+        
+        public String getBrdMsgId() {
+            return messagebId;
+        }
+
+	public String getOriginator() {
+		return originator;
+	}
+
+
 }

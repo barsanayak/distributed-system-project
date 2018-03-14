@@ -117,7 +117,7 @@ public class peerFunction {
         	
         	int key = messageID.getSequenceNumber();
         	MessageID ID = null;
-        	Node node = null;
+        	NodeMain node = null;
         	Iterator it = peerInfo.local.messageTable.entrySet().iterator();
         	while(it.hasNext()){
         		Entry entry = (Entry) it.next();
@@ -136,7 +136,7 @@ public class peerFunction {
         			String fileIp = message.getPeerIP();
         			int filePort = message.getPort();
         			if(filePort != -1){                  			
-        				Node peer = new Node(fileIp, filePort);
+        				NodeMain peer = new NodeMain(fileIp, filePort);
         				boolean b = false;
         				for(int i = 0; i<peerInfo.dest.destPeer.size();i++){
         					if(peerInfo.dest.destPeer.get(i).IP.equals(peer.IP)&&
@@ -174,7 +174,7 @@ public class peerFunction {
 		@Override
 		public void run() {
 			// TODO Auto-generated method stub
-			Node upstream = messageID.getPeerID();
+			NodeMain upstream = messageID.getPeerID();
 			
 			int sequence = messageID.getSequenceNumber();
 			
@@ -242,7 +242,7 @@ public class peerFunction {
 		public void run() {
 			// TODO Auto-generated method stub
 			// Do not need to change the sequenceNumber
-			Node upstream = messageID.getPeerID();
+			NodeMain upstream = messageID.getPeerID();
 			// Set local peer name to messageID
 			MessageID messageid = new MessageID(messageID.getSequenceNumber(), peerInfo.local.nick);
 //			messageID.setPeerID(peerInfo.local.nick);

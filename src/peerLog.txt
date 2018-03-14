@@ -1,0 +1,10 @@
+getNamesOfallPeers: Configuration file does not exist!
+p1 information about neighbours:p2 p1 information about neighbours:p3 	
+2018-03-13 22:34:27		Send:query 1 yy.txt p1	
+2018-03-13 22:34:27		Send:query 2 yy.txt p1	
+p1 information about neighbours:p2 p1 information about neighbours:p3 	
+2018-03-13 22:35:45		Send:query 1 ss.txt p1	
+2018-03-13 22:35:45		Send:query 2 ss.txt p1	
+p1 information about neighbours:p2 p1 information about neighbours:p3 	
+2018-03-13 22:36:22		Send:query 1 ee.txt p1	
+2018-03-13 22:36:22		Send:query 2 ee.txt p1	

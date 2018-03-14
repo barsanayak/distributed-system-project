@@ -1,5 +1,7 @@
 package gnutellafilesharing;
 
+
+
 import java.io.*;
 import java.net.*;
 import java.text.DateFormat;
@@ -7,8 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Map.Entry;
-
-import gnutellafilesharing.FileSharingImpl.clientThread;
+//import FileSharingImpl.clientThread;
 
 public class PeerThread extends Thread{
 	private ServerSocket serversocket;
@@ -140,7 +141,24 @@ public class PeerThread extends Thread{
                         		
                         }
                     	
-                    }else if("download".equals(command)){
+                    } 
+			else if("broadcast".equals(command)) {
+			String msgId = message.getBrdMsgId();
+			if(!(broadcaster.msgStore.contains(msgId)) && message.getBrdMsg().contains("txt")) {
+                        System.out.println(message.getOriginator() + " uploaded a new file" + ": "+message.getBrdMsg());
+			//System.out.println("Broadcasted message from "message.getBrdMsg());
+                        broadcaster brd = new broadcaster(msgId,message.getBrdMsg(),message.getOriginator());
+                        brd.sendToPeer(msgId);
+			}
+			else if (!(broadcaster.msgStore.contains(msgId)) ){
+				 System.out.println(message.getOriginator() + "says:" + ": "+message.getBrdMsg());
+					//System.out.println("Broadcasted message from "message.getBrdMsg());
+		                        broadcaster brd = new broadcaster(msgId,message.getBrdMsg(),message.getOriginator());
+		                        brd.sendToPeer(msgId);
+			}
+                    }
+
+			else if("download".equals(command)){
                     	// The peer who needs to down load the file
                     	// fileName IP and Port 
                     	fileName = message.getfileName();

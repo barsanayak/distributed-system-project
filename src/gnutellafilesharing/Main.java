@@ -1,5 +1,7 @@
 package gnutellafilesharing;
 
+
+
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.File;
@@ -18,10 +20,10 @@ import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class PeerMain {
+public class Main {
 
 	public static void main(String args[]) {
-		PeerMain peer = new PeerMain();
+		Main peer = new Main();
 		FileSharingImpl peerfunc = new FileSharingImpl();
 		peer.fileMonitor(PeerInformation.local.sharedPath);
 		new WThread(PeerInformation.local.sharedPath);
@@ -173,13 +175,13 @@ public class PeerMain {
 		// Usage Interface
 		while (!exit) {
 			
-			System.out.println("\n1 Name the peer \n2 Register a file for sharing \n3 Search for shared file\n4 Exit");
+			System.out.println("\n1 Name the peer \n2 Register a file for sharing \n3 Search for shared file\n4 Exit\n5 Broadcast a message" );
 			switch (Integer.parseInt(localReader.readLine())) {
 			case 1: {
 				
-				System.out.println(" The names of all peers:" + getNamesOfallPeers());	
+				//System.out.println(" The names of all peers:" + getNamesOfallPeers());	
 				
-				System.out.println(" The names of the registered peers:"  + getRegisteredPeerNames());
+				//System.out.println(" The names of the registered peers:"  + getRegisteredPeerNames());
 				System.out.println("Enter the  name of the peer :");
 				PeerInformation.local.nodeInfo.peerName = localReader.readLine();
 				PeerInformation.initialize();
@@ -202,6 +204,11 @@ public class PeerMain {
 				fileName = localReader.readLine();
 				// Register file to the index server
 				register(fileName);
+				String broadcastMessage = fileName;
+				String newMssgId = new MessageIdCreator().uniqueId();
+				broadcaster brd = new broadcaster(newMssgId,broadcastMessage,PeerInformation.local.nodeInfo.peerName);
+                            	brd.sendToPeer(newMssgId);
+System.out.println("check");
 				break;
 			}
 			case 3: {
@@ -262,6 +269,24 @@ public class PeerMain {
 				System.exit(0);
 				break;
 			}
+
+			case 5: {
+                            //BufferedReader messageReader = new BufferedReader(new InputStreamReader(System.in));
+                            System.out.println("Enter the message to be broadcasted");
+                            String broadcastMessage = localReader.readLine();
+			    //String broadcastMessage = messageReader.readLine();
+			    //Scanner sc = new Scanner(System.in);
+			    //String broadcastMessage = sc.nextLine();
+			    //System.out.println("message read");
+                            //sc.close();
+                            String newMssgId = new MessageIdCreator().uniqueId();
+                            //broadcastMessage = newMssgId+":"+broadcastMessage;
+                         broadcaster brd = new broadcaster(newMssgId,broadcastMessage,PeerInformation.local.nodeInfo.peerName);
+                         brd.sendToPeer(newMssgId);
+		    	    //System.out.println("check 1");
+			    break;
+                        }
+
 			default:
 				break;
 			}
@@ -359,7 +384,7 @@ class WThread extends Thread {
 						File file = new File(path + File.separator + PeerInformation.local.fileList.get(i));
 						if (!file.exists()) {
 							System.out.println(PeerInformation.local.fileList.get(i) + " was removed!");
-							PeerMain.unregister(PeerInformation.local.fileList.get(i));
+							Main.unregister(PeerInformation.local.fileList.get(i));
 
 						}
 					}

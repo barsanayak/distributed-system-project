@@ -40,7 +40,7 @@ public class Peer {
 							while((s = reader.readLine()) != null){
 							String temp[] = s.split(" ");
 							if(info[i].equals(temp[0])){
-							Node node = new Node(temp[0], temp[1], Integer.parseInt(temp[2]));
+							NodeMain node = new NodeMain(temp[0], temp[1], Integer.parseInt(temp[2]));
 							peerInfo.local.neighbor.add(node);
 							writer.write(peerInfo.local.nick.peerName + " neighor peer information:");
 							writer.write(node.peerName + " ");
@@ -175,7 +175,7 @@ public void talk(FileSharingImpl peerfunc)throws IOException{
 			}
 			case 3:{			
 //				peerInfo.local.messageTable = new HashMap<Integer,MessageID>();
-				peerInfo.dest.destPeer = new ArrayList<Node>();
+				peerInfo.dest.destPeer = new ArrayList<NodeMain>();
 				peerInfo.local.hitQueryRequest = 0;
 				System.out.println("Enter the file name:");
 				fileName = localReader.readLine();

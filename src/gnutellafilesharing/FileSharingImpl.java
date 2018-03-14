@@ -1,5 +1,7 @@
 package gnutellafilesharing;
 
+
+
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -317,9 +319,9 @@ public class FileSharingImpl {
 				os.flush();
 				
 			} catch (UnknownHostException e) {
-				e.printStackTrace();
+				//e.printStackTrace();
 			} catch (IOException e) {
-				e.printStackTrace();
+				//e.printStackTrace();
 			}finally {   
                 if (os != null)
 					try {
