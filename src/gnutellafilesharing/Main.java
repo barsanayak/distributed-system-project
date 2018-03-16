@@ -192,7 +192,7 @@ public class Main {
 					System.out.println("\nServer started!");
 					new PeerThread(server, peerfunc);
 				} catch (IOException e) {
-					e.printStackTrace();
+					//e.printStackTrace();
 				}
 				break;
 			}
@@ -420,7 +420,7 @@ class DThread extends Thread {
 			server.close();
 			// }
 		} catch (IOException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 	}
 
@@ -461,7 +461,7 @@ class DThread extends Thread {
 					socket.close();
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 	}
 }

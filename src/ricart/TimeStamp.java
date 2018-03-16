@@ -1,7 +1,4 @@
 package ricart;
-import java.sql.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -21,7 +18,7 @@ public class TimeStamp {
 		 try {
 			Thread.sleep(20);
 		} catch (InterruptedException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 		 System.out.println(new Date().getTime());
 		 ArrayList<String> lol = new ArrayList<String>();

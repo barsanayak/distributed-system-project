@@ -132,7 +132,7 @@ public class NodeMain
 			Thread.sleep(5000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 		
 		for(int i=0; i<NUMNODES; i++)

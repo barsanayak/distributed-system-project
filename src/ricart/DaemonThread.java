@@ -35,7 +35,7 @@ public class DaemonThread extends Thread
 			BR = NodeMain.readers.get(socket);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 	}
 
@@ -69,7 +69,7 @@ public class DaemonThread extends Thread
 							Thread.sleep(5000);
 						} catch (InterruptedException e) {
 							// TODO Auto-generated catch block
-							e.printStackTrace();
+							//e.printStackTrace();
 						}*/
 						NodeMain.closeSockets();
 					}

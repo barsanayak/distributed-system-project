@@ -93,7 +93,8 @@ public class broadcaster {
                         os.flush();
             
                     } catch (Exception e) {
-                        e.printStackTrace();
+                    	System.out.println(".");
+                        //e.printStackTrace();
                     }
 		    }
                 //}

@@ -51,7 +51,7 @@ public class RicartAgrawala {
 				System.out.println("delay of "+time);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				//e.printStackTrace();
 			}
 			
 			System.out.println(NodeMain.nodeID+" ready to enter CS");
@@ -145,7 +145,7 @@ public class RicartAgrawala {
 							System.out.println("delay of "+time1);
 						} catch (InterruptedException e) {
 							// TODO Auto-generated catch block
-							e.printStackTrace();
+							//e.printStackTrace();
 						}
 					}
 					requestCriticalSection();
@@ -202,7 +202,7 @@ public class RicartAgrawala {
 						Thread.sleep(5000);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
-						e.printStackTrace();
+						//e.printStackTrace();
 					}*/
 					NodeMain.broadcast("HALT");
 					NodeMain.closeSockets();
@@ -264,7 +264,7 @@ public class RicartAgrawala {
 					Thread.sleep(20);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
+					//e.printStackTrace();
 				}
 				
 				IOH.report(" Messages:"+2*replyCount+" Time Elapsed:"+timeElapsed);
@@ -288,7 +288,7 @@ public class RicartAgrawala {
 						System.out.println("delay of "+time);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
-						e.printStackTrace();
+						//e.printStackTrace();
 					}
 				}
 				requestCriticalSection();

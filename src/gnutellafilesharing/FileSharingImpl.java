@@ -211,7 +211,7 @@ public class FileSharingImpl {
 							writer.close();	
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
-							e.printStackTrace();
+							//e.printStackTrace();
 						}
 //						System.out.print("Send:"+command + " " + message.getMessageID().getSequenceNumber() + " " +message.getfileName()+" ");
 //                    	System.out.println(message.getMessageID().getPeerID().peerName);
@@ -261,7 +261,7 @@ public class FileSharingImpl {
 				writer.close();	
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				//e.printStackTrace();
 			}
 			
 //			System.out.print("Send:"+command + " " + message.getMessageID().getSequenceNumber() + " " +message.getfileName()+" ");
@@ -328,14 +328,14 @@ public class FileSharingImpl {
 						os.close();
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
-						e.printStackTrace();
+						//e.printStackTrace();
 					}  
                 if (socket != null)
 					try {
 						socket.close();
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
-						e.printStackTrace();
+						//e.printStackTrace();
 					}   
             }
 		}
@@ -393,35 +393,35 @@ class SThread extends Thread{
 					writer.close();	
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
+					//e.printStackTrace();
 				}
             }  
             
         }catch (Exception e) {  
             System.out.println("error");  
             bool = false;  
-            e.printStackTrace();    
+           // e.printStackTrace();    
         }finally{    
             if (dos != null)
 				try {
 					dos.close();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
+					//e.printStackTrace();
 				}  
             if (fis != null)
 				try {
 					fis.close();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
+					//e.printStackTrace();
 				}     
             if (socket != null)
 				try {
 					socket.close();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
+					//e.printStackTrace();
 				}      
         }  
         System.out.println(bool?"Success":"Fail");  

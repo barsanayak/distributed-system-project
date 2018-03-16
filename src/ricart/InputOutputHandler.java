@@ -54,7 +54,7 @@ public class InputOutputHandler
 	
 		} catch (IOException e) 
 		{
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 		return totalNodes;
 	}
@@ -73,7 +73,7 @@ public class InputOutputHandler
 				bw.write("Node "+NodeMain.nodeID+ " requested at "+ rq+ ":"+status + " cs:" + ts + "\n");
 			bw.close();
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 	}
 	
@@ -91,7 +91,7 @@ public class InputOutputHandler
 				bw.write("Node "+NodeMain.nodeID+ status + "\n");
 			bw.close();
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 	}
 }
